@@ -17,7 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install gspread google-auth cloudscraper
+          pip install gspread google-auth cloudscraper requests[security] urllib3
 
       - name: Run Scraper
         env:
