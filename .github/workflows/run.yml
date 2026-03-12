@@ -7,14 +7,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Обновлено с v3 до v4
+
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Обновлено с v4 до v5
         with:
           python-version: '3.9'
-      - name: Install
-        run: pip install gspread oauth2client cloudscraper
-      - name: Run
+
+      - name: Install dependencies
+        run: |
+          pip install gspread oauth2client cloudscraper
+
+      - name: Run Scraper
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
