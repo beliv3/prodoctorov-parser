@@ -1,0 +1,21 @@
+name: Update Data
+on:
+  schedule:
+    - cron: '0 3 * * *' # Запуск в 3 утра ежедневно
+  workflow_dispatch: # Кнопка для ручного запуска
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install
+        run: pip install gspread oauth2client cloudscraper
+      - name: Run
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+        run: python main.py
